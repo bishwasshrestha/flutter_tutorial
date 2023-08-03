@@ -16,6 +16,7 @@ class QuoteList extends StatefulWidget {
 
 //stateful widget definition
 class _MyWidgetState extends State<QuoteList> {
+
   List<Quote> quotes = [
     Quote(author: 'John Abraham', text: 'Darr ke aga jeet hai!'),
     Quote(author: 'Gabbar Singh', text: 'Jo dar gaya, woh mar gaya!'),
@@ -37,14 +38,21 @@ class _MyWidgetState extends State<QuoteList> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: quotes.map((quote) => quotecard(quote)).toList(),
+            children: quotes.map((quote) => quotecard(
+              quote: quote,
+              delete:(){
+                setState(() {
+                  quotes.remove(quote);
+                });
+              } ,
+            )).toList(),
           ),
         ));
   }
 
 // //Cards
-//   Widget quoteTemplate(quote) {
-//     return quotecard(quote);
-//   }
+  // Widget quoteTemplate(quote, delete) {
+  //   return quotecard(quote, delete);
+  // }
 
 }
