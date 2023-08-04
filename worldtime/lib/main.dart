@@ -6,7 +6,7 @@ import 'package:worldtime/pages/loading.dart';
 void main() {
   runApp(MaterialApp(
       // home: const Home(),
-      initialRoute: '/home', //overriding the map to display on load
+      initialRoute: '/', //overriding the map to display on load
       routes: {
         '/': (context) => const Loading(), //default landing page
         '/home': (context) => const Home(),

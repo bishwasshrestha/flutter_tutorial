@@ -11,11 +11,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text('World Time'),
-        //   centerTitle: true,
-        //   elevation: 0,
-        // ),
+        appBar: AppBar(
+          title: const Text('World Time'),
+          centerTitle: true,
+          elevation: 0,
+        ),
         body: SafeArea(
             child: Column(children: [
           OutlinedButton.icon(
