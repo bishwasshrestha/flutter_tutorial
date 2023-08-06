@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worldtime/services/world_time.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -9,27 +10,38 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  String time ='...loading';
-  void setupWorldTime() async{
-    WorldTime instance = WorldTime(location: 'Helsinki', flag: 'helsinki.png', url:'Europe/Helsinki');
+  void setupWorldTime() async {
+    WorldTime instance = WorldTime(
+        location: 'Helsinki', flag: 'helsinki.png', url: 'Europe/Helsinki');
     await instance.getData();
-    // print(instance.time);
-    setState(() {     
-      time = instance.time!; //assigning time of our instance of worldtime class after checking for null ('!')
-    });
+
+//Navigating to home page carrying the data available on the instance of class WorldTime
+//cant use 'BuildContext's across async gaps therefore if condition ensures that the statement is executed once the context is mounted.
+    if (context.mounted) {
+      Navigator.pushReplacementNamed(context, '/home', arguments: {
+        'location': instance.location,
+        'flag': instance.flag,
+        'time': instance.time,
+        'isDaytime': instance.isDaytime,
+      });
+    }
   }
+
   @override
   void initState() {
     super.initState();
-    setupWorldTime();  
+    setupWorldTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Text(time),
+    return const Scaffold(
+      backgroundColor: Color.fromRGBO(41, 98, 255, 1),
+      body: Center(
+        child: SpinKitSpinningLines(
+          color: Colors.amber,
+          size: 150.0,
+        ),
       ),
     );
   }
