@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 5, 63, 139)),
+            seedColor: const Color.fromARGB(255, 15, 45, 70)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter'),
+      home: const MyHomePage(title: 'Bottom Navigatio Bar'),
     );
   }
 }
@@ -61,9 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text('You have pushed the button this many times:',
+          Text('You have pushed the button:',
               textAlign: TextAlign.center, style: optionStyle),
-          Text('$_counter', style: optionStyle)
+          Text('$_counter times', style: optionStyle)
         ])),
         floatingActionButton: FloatingActionButton(
           onPressed: _incrementCounter,
@@ -79,7 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(widget.title),
+        title: Center(
+          child: Text(
+            widget.title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
       body: Center(
           child: widgetOptions.elementAt(
