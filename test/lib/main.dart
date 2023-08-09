@@ -1,104 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:test/pages/homepage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MaterialApp( 
+    initialRoute: '/',    
+      routes: {
+        '/': (context) => const MyApp()        
+        },
+    ));
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 15, 45, 70)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Bottom Navigatio Bar'),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class _MyAppState extends State<MyApp> {
+  int selectedIndex = 0; 
 
-  final String title;
+  final List<Widget> widgetOptions = <Widget>[
+    const MyHomePage(title: 'my home page'),
+    const Center(child: Text('Index1: Shop'))
+  ];
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  late int _counter = 0;
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
+  void _onItemTapped(index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;      
     });
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  static TextStyle optionStyle = GoogleFonts.eduSaBeginner(
-      textStyle: const TextStyle(
-    fontSize: 38,
-  ));
+  } 
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> widgetOptions = <Widget>[
-      //a widget definition for individual navigation bar
-      //widgit for home tab (index: 0)
-      Scaffold(
-        body: Center(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text('You have pushed the button:',
-              textAlign: TextAlign.center, style: optionStyle),
-          Text('$_counter times', style: optionStyle)
-        ])),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-      ),
-      //widget for school tab (index:1)
-      Text('Index 1: School', style: optionStyle),
-    ];
-
     //returning the scaffold widget to homepoge
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Center(
-          child: Text(
-            widget.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-      body: Center(
-          child: widgetOptions.elementAt(
-              _selectedIndex)), //body loads widgets according to index of tab
+      body: widgetOptions.elementAt(selectedIndex),
+      //body loads widgets according to index of tab
       bottomNavigationBar: BottomNavigationBar(
         //bottom navigation bar
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
+          BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Shop'),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         selectedItemColor: Colors.blue.shade800,
         onTap: _onItemTapped,
       ),
